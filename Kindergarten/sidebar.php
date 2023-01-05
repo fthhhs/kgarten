@@ -157,9 +157,9 @@
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
-			<li class="active">
+			<li >
 				<a href="staff.php">
-					<i class='bx bxs-shopping-bag' ></i>
+					<i class='bx bxs-shopping-bag-alt' ></i>
 					<span class="text">List Of Staff</span>
 				</a>
 			</li>

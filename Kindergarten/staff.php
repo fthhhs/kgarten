@@ -78,7 +78,7 @@
 								<th>Staff ID</th>
 								<th>Name</th>
 								<th>Gender</th>
-                        <th>Status</th>
+                        		<th>Status</th>
 								<th>Password</th>
 								<th>Edit</th>
 								<th>Delete</th>
@@ -103,8 +103,7 @@
                   <td> 
                      <a href="delete.php?teacher_id=<?php echo $dataB['teacher_id'];?>"
                      onclick="return confirm('Are you sure?')">Delete</a></td>
-                </tr>';
-            
+                </tr>
             <?php
             $num++;
               }

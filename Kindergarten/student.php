@@ -78,7 +78,7 @@
 								<th>No</th>
 								<th>Student ID</th>
 								<th>Name</th>
-								<th>Grade</th>
+								<!-- <th>Grade</th> -->
 								<th>Gender</th>
 								<th>Date of Birth</th>
 								<th>Parent Name</th>
@@ -96,13 +96,13 @@
 				<td><?php echo $num; ?></td>
 				<td><?php echo $dataB ['stu_id']; ?></td>
 				<td><?php echo $dataB ['stu_name']; ?></td>
-				<td><?php echo $dataB ['stu_grade']; ?></td>
-				<td><?php echo $dataB ['stu_gender']; ?></td>\
+				<!-- <td><?php //echo $dataB ['stu_grade']; ?></td> -->
+				<td><?php echo $dataB ['stu_gender']; ?></td>
 				<td><?php echo $dataB ['stu_dob']; ?></td>
 				<td><?php echo $dataB ['parent_name']; ?></td>
 				<td><?php echo $dataB ['parent_phone']; ?></td>
 				<td> 
-                     <a href="view.php?stu_id=<?php echo $dataB['stu_id'];?>"
+                     <a href="viewstudent.php?stu_id=<?php echo $dataB['stu_id'];?>"
                      onclick="return confirm('Are you sure?')">View</a></td>
 			</tr>
 	
