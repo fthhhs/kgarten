@@ -61,25 +61,6 @@
 			<form class = "" action="addtest.php" method="POST" >
 			<div class="gender-details">
 				<label class="gender-title">Staff Status</label>
-				<div class="category2">
-					<input type="radio" name="STAFF_STATUS" value="FULL_TIME" id="FULL_TIME" >FULL TIME
-					<input type="radio" name="STAFF_STATUS" value="PART_TIME" id="PART_TIME"> PART TIME
-					<div class="educational" hidden>
-					<label class="details">Educational Type</label>
-					<select class="" name="EDUCATIONAL_TYPE" >
-						<option value= "" selected hidden>Select Educational Type</option>
-						<option value= "DIPLOMA">Diploma </option>
-						<option value= "DEGREE">Degree</option>
-						<option value= "MASTER">Master</option>
-					</select>
-					</div>
-					<div class="overtime" hidden>
-						<label class="details">Overtime Hours</label>
-						<input type="number" name="OVERTIME_HOURS">
-						<a class="active" href="calculate.php">Calculation</a>
-					</div>
-					
-				</div>
 				</div>
 				<div class="user-details">
 				<div class="input-box">
@@ -92,7 +73,7 @@
 					<input type="text" name="STAFF_NAME" required value="">
 				</div>
 				
-				<div class="input-box">
+				<!-- <div class="input-box">
 					<label class = "details">Staff Job Type</label>
 					<select class="" name="STAFF_JOBTYPE" required>
 			
@@ -100,9 +81,8 @@
 						<option value= "Management">Management</option>
 						<option value= "Teacher">Teacher</option>
 						<option value= "Admin">Admin</option>
-				
 					</select>
-				</div>
+				</div> -->
 				
 				<div class="input-box">
 					<label class = "details">Staff Phone Number</label>
@@ -158,7 +138,7 @@
 			
 				<div class="user-details">
 			
-				<div class="input-box2">
+				<!-- <div class="input-box2">
 				<label class="details">Subject 4 Murni</label>			
 					<input type="radio" name="SUBJECT_ID" value="S004">S004<br>
 					<input type="radio" name="SUBJECT_ID" value="B004">B004<br>
@@ -185,7 +165,32 @@
 					<input type="radio" name="SUBJECT_ID" value="J006">J006<br>
 					<input type="radio" name="SUBJECT_ID" value="B006">B006<br>
 					<input type="radio" name="SUBJECT_ID" value="I006">I006<br>
+				</div> -->
 				</div>
+				<div class="category2">
+					<input type="radio" name="STAFF_STATUS" value="FULL_TIME" id="FULL_TIME" >FULL TIME
+					<input type="radio" name="STAFF_STATUS" value="PART_TIME" id="PART_TIME">PART TIME
+					<div class="educational" hidden>
+						<label class="details">Educational Type</label>
+						<select class="" name="EDUCATIONAL_TYPE" >
+							<option value= "" selected hidden>Select Educational Type</option>
+							<option value= "DIPLOMA">Diploma </option>
+							<option value= "DEGREE">Degree</option>
+						</select>
+					</div>
+					<div class="overtime" hidden>
+						<label class="details">Overtime Hours</label>
+						<input type="number" name="OVERTIME_HOURS">
+						<a class="active" href="calculate.php">Calculation</a>
+						<!-- <form action = "test.php" method = "GET">
+							End Time:<br>
+							<input name = "num1"><br>
+							Start Time:<br>
+							<input name = "num2"><br>
+							<button type = "submit">Calculate</button>
+						</form> -->
+					</div>
+					
 				</div>
 					
 				<br>	
