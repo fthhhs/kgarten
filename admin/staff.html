@@ -1,0 +1,178 @@
+<?php 
+		//Connection to database 
+		include 'dbconn.php';
+		$query="Select STAFF_ID, STAFF_NAME, STAFF_JOBTYPE, STAFF_DOB, STAFF_PHONE, STAFF_EMAIL, STAFF_ADDRESS, STAFF_GENDER, STAFF_STATUS, STAFF_SALARY, STAFF_HIREDATE, SUPERVISOR_ID 
+		        from STAFF
+				order by STAFF_ID Asc";
+		$result = oci_parse($dbconn,$query);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="styleAdmin.css">
+
+	<title>AdminHub</title>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="home.html" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Admin Panel</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="home.html">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="staff.html">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">List Of Staff</span>
+				</a>
+			</li>
+			<li>
+				<a href="student.html">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">List of Student</span>
+				</a>
+			</li>
+			<li>
+				<a href="class.html">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">List of Class</span>
+				</a>
+			</li>
+			<li>
+				<a href="addstaff.html">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Staff</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="login.html" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<a href="#" class="nav-link">Categories</a>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+			<a href="edit.html" class="profile">
+				<img src="profile.png">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Home</a>
+						</li>
+					</ul>
+				</div>
+				<div >
+				<a href="staffSubject.html" class="btn-download" >
+					<i class='bx bxs-cloud-download' ></i>
+					<span class="text">Update Subject</span>
+				</a>
+				<br>
+				</div>
+			</div>
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>List of Staff</h3>
+						<i class='bx bx-filter' ></i>
+					</div>
+					<table>
+							<tr>
+								<th>Staff ID</th>
+								<th>Name</th>
+								<th>Job Type</th>
+								<th>Date of Birth</th>
+								<th>Phone Number</th>
+								<th>Email</th>
+								<th>Address</th>
+								<th>Gender</th>
+								<th>Status</th>
+								<th>Salary</th>
+								<th>Hire Date</th>
+								<th>Supervisor ID</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+							
+						<?php
+							while($rows=oci_fetch_assoc($result))
+							{
+						?>
+							
+								<tr>
+									<td><?php echo $rows['STAFF_ID']; ?></td>
+									<td><?php echo $rows['STAFF_NAME']; ?></td>
+									<td><?php echo $rows['STAFF_JOBTYPE']; ?></td>
+									<td><?php echo $rows['STAFF_DOB']; ?></td>
+									<td><?php echo $rows['STAFF_PHONE']; ?></td>
+									<td><?php echo $rows['STAFF_EMAIL']; ?></td>
+									<td><?php echo $rows['STAFF_ADDRESS']; ?></td>
+									<td><?php echo $rows['STAFF_GENDER']; ?></td>
+									<td><?php echo $rows['STAFF_STATUS']; ?></td>
+									<td><?php echo $rows['STAFF_SALARY']; ?></td>
+									<td><?php echo $rows['STAFF_HIREDATE']; ?></td>
+									<td><?php echo $rows['SUPERVISOR_ID']; ?></td>
+									<td><div align="center"><a href="updatestaff.html?user_id=<?php print ($rows['STAFF_ID']);?>">edit</a></div></td>
+									<td><div align="center"><a href="delete.php?user_id=<?php print ($rows['STAFF_ID']);?>">delete </a></div></td>
+								</tr>
+						<?php
+							
+							}
+						?>				
+					</table>
+				</div>
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	
+
+	<script src="script.js"></script>
+</body>
+</html>
