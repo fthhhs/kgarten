@@ -86,9 +86,7 @@
 						<?php
 						// while($rows=oci_fetch_assoc($result))
 						// {
-							$fetchData = mysqli_query($conn, "SELECT t.teacher_id, t.teacher_name, s.subject_id, s.subject_name 
-							FROM teacher t, teacher_subject ts, 'subject' s
-							WHERE t.teacher_id = ts.teacher_id AND s.subject_id = ts.subject_id");
+							$fetchData = mysqli_query($conn, "SELECT * FROM teacher t JOIN teacher_subject ts on t.teacher_id = ts.teacher_id JOIN subject s ON ts.subject_id = s.subject_id");
 							$num=1;
 							while ($dataB=mysqli_fetch_array($fetchData))
 							{
@@ -102,14 +100,16 @@
 						<td> '.$rows["SUBJECT_NAME"].'</td>
 						<td><div align="center" onClick=return confirm("Are you sure?")><a href=deletesubject.php?user_id='.$rows["STAFF_ID"].'>delete </a></div></td>
 						</tr>'; -->
+						<tr>
 						<td><?php echo $num; ?></td>
 						<td><?php echo $dataB ['teacher_id']; ?></td>
 						<td><?php echo $dataB ['teacher_name']; ?></td>
 						<td><?php echo $dataB ['subject_id']; ?></td>
 						<td><?php echo $dataB ['subject_name']; ?></td>
 						<td> 
-                     		<a href="delete.php?teacher_id=<?php echo $dataB['teacher_id'];?>"
+                     		<a href="deletesubject.php?teacher_id=<?php echo $dataB['teacher_id'];?>"
                     		onclick="return confirm('Are you sure?')">Delete</a></td>
+						</tr>
 					
 						<?php
 						$num++;
