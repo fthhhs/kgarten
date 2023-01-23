@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 	//Connection to database 
-	include ('dbconn.php');
+	include ('dbconn1.php');
 	// $query="Select s.STAFF_ID, s.STAFF_NAME,s.STAFF_PHONE, s.STAFF_EMAIL,s.STAFF_STATUS, s.STAFF_HIREDATE,super.STAFF_NAME AS SUPERVISOR
 	// 		from STAFF s 
 	// 		LEFT OUTER JOIN STAFF super
@@ -85,23 +85,24 @@
 							</tr>
 							
 				<?php
-            $fetchData = mysqli_query($conn, "SELECT * FROM teacher ");
+            $fetchData = oci_parse($conn, "SELECT * FROM teacher ");
+			oci_execute($fetchData);
 			   $num=1;
-			   while ($dataB=mysqli_fetch_array($fetchData))
+			   while ($dataB=oci_fetch_array($fetchData))
 			   {
 			   ?> 
                <tr>
                   <td><?php echo $num; ?></td>
-                  <td><?php echo $dataB ['teacher_id']; ?></td>
-                  <td><?php echo $dataB ['teacher_name']; ?></td>
-                  <td><?php echo $dataB ['teacher_gender']; ?></td>
-                  <td><?php echo $dataB ['teacher_status']; ?></td>
-                  <td><?php echo $dataB ['teacher_password']; ?></td>
+                  <td><?php echo $dataB ['TEACHER_ID']; ?></td>
+                  <td><?php echo $dataB ['TEACHER_NAME']; ?></td>
+                  <td><?php echo $dataB ['TEACHER_GENDER']; ?></td>
+                  <td><?php echo $dataB ['TEACHER_STATUS']; ?></td>
+                  <td><?php echo $dataB ['TEACHER_PASSWORD']; ?></td>
                   <td>
-                     <a href="edit.php?teacher_id=<?php echo $dataB['teacher_id'];?>" 
+                     <a href="edit.php?TEACHER_ID=<?php echo $dataB['TEACHER_ID'];?>" 
                      onclick="return confirm('Are you sure?')">Edit</a></td>
                   <td> 
-                     <a href="delete.php?teacher_id=<?php echo $dataB['teacher_id'];?>"
+                     <a href="delete.php?TEACHER_ID=<?php echo $dataB['TEACHER_ID'];?>"
                      onclick="return confirm('Are you sure?')">Delete</a></td>
                 </tr>
             <?php
