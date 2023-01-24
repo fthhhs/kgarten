@@ -1,42 +1,44 @@
 <?php 
  include 'dbconn.php';
 		
-		if($_SERVER["REQUEST_METHOD"] == "POST")
-		{ 
-		$id = $_SESSION['STAFF_ID'];
-		$STAFF_NAME = $_POST['STAFF_NAME'];
-		$STAFF_JOBTYPE = $_POST['STAFF_JOBTYPE'];
-		$STAFF_PHONE = $_POST['STAFF_PHONE'];
-		$STAFF_EMAIL = $_POST['STAFF_EMAIL'];
-		$STAFF_ADDRESS = $_POST['STAFF_ADDRESS'];
-		$STAFF_SALARY = $_POST['STAFF_SALARY'];
+	if(isset($_POST['submit']))
+	{ 
+		$id = $_SESSION['TEACHER_ID'];
+		$TEACHER_NAME = $_POST['TEACHER_NAME'];
+		$TEACHER_STATUS = $_POST['TEACHER_STATUS'];
+		$TEACHER_PHONE = $_POST['TEACHER_PHONE'];
+		$TEACHER_EMAIL = $_POST['TEACHER_EMAIL'];
+		$TEACHER_ADDRESS = $_POST['TEACHER_ADDRESS'];
+		$TEACHER_SALARY = $_POST['TEACHER_SALARY'];
 		$SUPERVISOR_ID = $_POST['SUPERVISOR_ID'];
 		
-       //Update data   
-	   $query="UPDATE STAFF SET STAFF_NAME=:STAFF_NAME,STAFF_JOBTYPE=:STAFF_JOBTYPE,STAFF_PHONE=:STAFF_PHONE,STAFF_EMAIL=:STAFF_EMAIL,STAFF_ADDRESS=:STAFF_ADDRESS,STAFF_SALARY=:STAFF_SALARY,SUPERVISOR_ID=:SUPERVISOR_ID
-        	   WHERE STAFF_ID='$id'" ;
-	   $result = oci_parse( $dbconn,$query);
-	   
-		oci_bind_by_name($result,':STAFF_NAME',$STAFF_NAME);
-		oci_bind_by_name($result,':STAFF_JOBTYPE',$STAFF_JOBTYPE);
-		oci_bind_by_name($result,':STAFF_PHONE',$STAFF_PHONE);
-		oci_bind_by_name($result,':STAFF_EMAIL',$STAFF_EMAIL);
-		oci_bind_by_name($result,':STAFF_ADDRESS',$STAFF_ADDRESS);
-		oci_bind_by_name($result,':STAFF_SALARY',$STAFF_SALARY);
+		//Update data   
+		$query="UPDATE TEACHER 
+				SET TEACHER_NAME=:TEACHER_NAME,TEACHER_STATUS=:TEACHER_STATUS,TEACHER_PHONE=:TEACHER_PHONE,TEACHER_EMAIL=:TEACHER_EMAIL,TEACHER_ADDRESS=:TEACHER_ADDRESS,TEACHER_SALARY=:TEACHER_SALARY,SUPERVISOR_ID=:SUPERVISOR_ID
+				WHERE TEACHER_ID='$id'" ;
+		$result = oci_parse( $dbconn,$query);
+		
+		oci_bind_by_name($result,':TEACHER_NAME',$TEACHER_NAME);
+		oci_bind_by_name($result,':TEACHER_STATUS',$TEACHER_STATUS);
+		oci_bind_by_name($result,':TEACHER_PHONE',$TEACHER_PHONE);
+		oci_bind_by_name($result,':TEACHER_EMAIL',$TEACHER_EMAIL);
+		oci_bind_by_name($result,':TEACHER_ADDRESS',$TEACHER_ADDRESS);
+		oci_bind_by_name($result,':TEACHER_SALARY',$TEACHER_SALARY);
 		oci_bind_by_name($result,':SUPERVISOR_ID',$SUPERVISOR_ID);
 		
-	   oci_execute($result);
-		}
-	   
-        if ($result)
-		{
+		oci_execute($result);
+
+		if ($result){
 			oci_commit($dbconn);
 			Print '<script>alert("Update Successfully");</script>'; 
 			Print '<script>window.location.assign("staff.php");</script>'; 
 		}
-		else
-		{ 
+
+		else{ 
 			echo '<script>alert("Error!")</script>';	
 		}
+
+		// echo $result;
+	}
 		
 ?>

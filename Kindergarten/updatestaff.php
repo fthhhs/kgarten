@@ -1,8 +1,9 @@
 <?php 
-		//Connection to database
-		session_start(); 
-		include ('dbconn.php');
+		//Connection to database 
+		include 'dbconn.php';
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,15 +18,189 @@
 
 	<title>AdminHub</title>
 </head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
+#FULL_TIME:checked ~ .educational
+{
+	display:block;
+}
+
+#PART_TIME:checked ~ .overtime
+{
+	display:block;
+}
+.container{
+  max-width: 700px;
+  width: 100%;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
+.container .title{
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+}
+.container .title::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+.content form .user-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+form .user-details .input-box{
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+}
+form .input-box label.details{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.user-details .input-box input{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+.user-details .input-box input:focus,
+.user-details .input-box input:valid{
+  border-color: #9b59b6;
+}
+ form .gender-details .gender-title{
+  font-size: 20px;
+  font-weight: 500;
+ }
+ form .category1{
+   display: flex;
+   width: 30%;
+   margin: 14px 0 ;
+   justify-content: space-between;
+ }
+ 
+ form .category2{
+   display: flex;
+   width: 70%;
+   margin: 17px 0 ;
+   justify-content: space-between;
+ }
+ form .category label{
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+ }
+ 
+ form .button{
+   height: 45px;
+   margin: 35px 0
+ }
+ form .button input{
+   height: 100%;
+   width: 100%;
+   border-radius: 5px;
+   border: none;
+   color: #fff;
+   font-size: 18px;
+   font-weight: 500;
+   letter-spacing: 1px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   background: linear-gradient(135deg, #71b7e6, #9b59b6);
+ }
+ form .button input:hover{
+  /* transform: scale(0.99); */
+  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  }
+ @media(max-width: 584px){
+ .container{
+  max-width: 100%;
+}
+form .user-details .input-box{
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  form .category{
+    width: 100%;
+  }
+  .content form .user-details{
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+  .user-details::-webkit-scrollbar{
+    width: 5px;
+  }
+  }
+  @media(max-width: 459px){
+  .container .content .category{
+    flex-direction: column;
+  }
+}
+</style>
 <body>
 
 
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<?php
-         	include ('sidebar.php');
-      	?>
+		<a href="home.php" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Admin Panel</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="home.php">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="staff.php">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">List Of Staff</span>
+				</a>
+			</li>
+			<li>
+				<a href="student.php">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">List of Student</span>
+				</a>
+			</li>
+			<li>
+				<a href="class.php">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">List of Class</span>
+				</a>
+			</li>
+			<li>
+				<a href="addstaff.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Staff</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="login.php" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
 	</section>
 	<!-- SIDEBAR -->
 
@@ -79,137 +254,79 @@
 		
 		<?php
 		$id=$_GET['user_id'];
-		$query="Select * 
-		        from STAFF
-				WHERE STAFF_ID='$id'";
+		$query="SELECT * 
+		FROM TEACHER
+		WHERE TEACHER_ID='$id'";
 		$result = oci_parse($dbconn,$query);
-        oci_execute($result);
-		while ( $user = oci_fetch_array($result))
+       		 oci_execute($result);
+			while ( $user = oci_fetch_array($result))
 			{					
 			
-					 $STAFF_ID = $user['STAFF_ID'];
-					 $STAFF_NAME = $user['STAFF_NAME'];
-				   	 $STAFF_JOBTYPE = $user['STAFF_JOBTYPE'];
-					 $STAFF_PHONE = $user['STAFF_PHONE'];
-					 $STAFF_EMAIL = $user['STAFF_EMAIL'];
-					 $STAFF_ADDRESS = $user['STAFF_ADDRESS'];
-					 $STAFF_SALARY = $user['STAFF_SALARY'];
-					 $SUPERVISOR_ID = $user['SUPERVISOR_ID'];
+				$TEACHER_ID = $user['TEACHER_ID'];
+				$TEACHER_NAME = $user['TEACHER_NAME'];
+				$TEACHER_STATUS = $user['TEACHER_STATUS'];
+				$TEACHER_PHONE = $user['TEACHER_PHONE'];
+				$TEACHER_EMAIL = $user['TEACHER_EMAIL'];
+				$TEACHER_ADDRESS = $user['TEACHER_ADDRESS'];
+				$TEACHER_SALARY = $user['TEACHER_SALARY'];
+				$SUPERVISOR_ID = $user['SUPERVISOR_ID'];
 					 
 			}
 			?>
-			<form action="editstaff.php" method="POST">
-			
-			<div class="user-details">
-				<div class="input-box">
-					<label class = "details">Staff ID</label>
-					<input type="text" name="STAFF_ID" value="<?php echo $STAFF_ID ?>">
+			<form action="editstaff" method="POST">
+				<div class="user-details">
+					<div class="input-box">
+						<label class = "details">Teacher ID</label>
+						<input type="text" name="TEACHER_ID" value="<?php echo $TEACHER_ID ?>">
+					</div>
+					
+					<div class="input-box">
+						<label class = "details">Name</label>
+						<input type="text" name="TEACHER_NAME" value="<?php echo $TEACHER_NAME ?>">
+					</div>
+					
+					<div class="input-box">
+						<label class = "details">Status</label>
+						<input type="text" name="TEACHER_STATUS" value="<?php echo $TEACHER_STATUS ?>">
+					</div>
+					
+					<div class="input-box">
+						<label class = "details">Phone Number</label>
+						<input type="text" name="TEACHER_PHONE" value="<?php echo $TEACHER_PHONE ?>">
+					</div>
+					
+					<div class="input-box">
+						<label class = "details">Email</label>
+						<input type="text" name="TEACHER_EMAIL" value="<?php echo  $TEACHER_EMAIL ?>">
+					</div>
+					
+					<div class="input-box">
+						<label class = "details">Address</label>
+						<input type="text" name="TEACHER_ADDRESS" value="<?php echo $TEACHER_ADDRESS ?>">
+					</div>
 				</div>
 				
-				<div class="input-box">
-					<label class = "details">Staff Name</label>
-					<input type="text" name="STAFF_NAME" value="<?php echo $STAFF_NAME ?>">
+				<div class="user-details">
+					
+					<div class="input-box">
+						<label class="details">Salary (RM)</label>
+						<input type="text" name="TEACHER_SALARY" value="<?php echo $TEACHER_SALARY ?>">
+					</div>
+					
+					<div class="input-box">
+						<label class="details">Supervisor ID</label>
+						<input type="text" name="SUPERVISOR_ID" value="<?php echo $SUPERVISOR_ID ?>">
+					</div>
 				</div>
 				
-				<div class="input-box">
-					<label class = "details">Staff Job Type</label>
-					<select class="" name="STAFF_JOBTYPE">
-			
-						<option value= "" selected hidden>Select Job Type</option>
-						<option value= "Management"
-						
-								<?php
-									if($STAFF_JOBTYPE == 'Management')
-									{
-										echo "selected";
-									}
-								?>>Management</option>
-								
-						<option value= "Teacher"
-						
-									<?php
-									if($STAFF_JOBTYPE == 'Teacher')
-									{
-										echo "selected";
-									}
-									?>>Teacher</option>
-									
-						<option value= "Admin"
-						
-									<?php
-									if($STAFF_JOBTYPE == 'Admin')
-									{
-										echo "selected";
-									}
-									?>>Admin</option>
-									
-				
-					</select>
+				<div class="button">
+						<input type="submit" name="submit" value="submit">
 				</div>
-				
-				<div class="input-box">
-					<label class = "details">Staff Phone Number</label>
-					<input type="text" name="STAFF_PHONE" value="<?php echo $STAFF_PHONE ?>">
-				</div>
-				
-				<div class="input-box">
-					<label class = "details">Staff Email</label>
-					<input type="text" name="STAFF_EMAIL" value="<?php echo  $STAFF_EMAIL ?>">
-				</div>
-				
-				<div class="input-box">
-					<label class = "details">Staff Address</label>
-					<input type="long text" name="STAFF_ADDRESS" value="<?php echo $STAFF_ADDRESS ?>">
-				</div>
-			</div>
-			
-			<div class="user-details">
-				
-				<div class="input-box">
-					<label class="details">Staff Salary (RM)</label>
-					<input type="text" name="STAFF_SALARY" value="<?php echo $STAFF_SALARY ?>">
-				</div>
-				
-				<div class="input-box">
-					<label class="details">Supervisor ID</label>
-					<select class="" name="SUPERVISOR_ID" required>
-						<option value= "" selected hidden>Select Supervisor ID</option>
-						
-						<option value= "S008"
-									<?php
-									if($SUPERVISOR_ID == 'S008')
-									{
-										echo "selected";
-									}
-									?>>S008-Fazreen </option>
-						
-						<option value= "S015"
-									<?php
-									if($SUPERVISOR_ID == 'S015')
-									{
-										echo "selected";
-									}
-									?>>S015-Nur Afza</option>
-						
-						<option value= "S016"
-									<?php
-									if($SUPERVISOR_ID == 'S016')
-									{
-										echo "selected";
-									}
-									?>>S016-Ahmad Adham</option>
-						
-					</select>
-				</div>
-			</div>
-			<div class="button">
-					<input type = "submit" name="submit" value="submit">
-			</div>
 			</form>		
 		</div>
 	</div>
 	</main>
-		<!-- MAIN -->
+	<!-- MAIN -->
 	</section>
 	<!-- CONTENT -->
 
@@ -220,16 +337,16 @@
 
 <?php
 
-$result = oci_parse($dbconn,"SELECT * FROM STAFF WHERE STAFF_ID  ='$STAFF_ID'");
-      	oci_execute($result); //CARA NAK EXECUTE SQL
+	$result = oci_parse($dbconn,"SELECT * FROM TEACHER WHERE TEACHER_ID  ='$TEACHER_ID'");	
+      	oci_execute($result); //NAK EXECUTE SQL
       
-$staff = oci_fetch_array($result);
- $count = oci_num_rows($result);
+	$staff = oci_fetch_array($result);
+ 	$count = oci_num_rows($result);
  
- if($count > 0)  
- {
-  $info = $staff;   
-  $_SESSION['STAFF_ID']=$info['STAFF_ID']; 
- }
+	if($count > 0)  
+	{
+	$info = $staff;   
+	$_SESSION['TEACHER_ID']=$info['TEACHER_ID']; 
+	}
 
 ?>

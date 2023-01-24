@@ -1,16 +1,7 @@
 <?php 
 		//Connection to database 
 		include 'dbconn.php';
-		session_start();
-		// $query="SELECT STU_ID, STU_NAME, STU_GRADE, STU_GENDER, STU_DOB, STU_YEAR_ENROLLED, CLASS_NAME, PARENT_NAME, PARENT_PHONE 
-		// 		FROM STUDENT
-		// 		JOIN CLASS
-		// 		USING (CLASS_ID)
-		// 		JOIN PARENT
-		// 		USING (PARENT_ID)
-		// 		ORDER BY STU_ID Asc";
-		// $result = oci_parse($dbconn,$query);
-		// oci_execute($result);
+
 ?>
 
 <!DOCTYPE html>
@@ -31,9 +22,50 @@
 
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<?php
-         	include ('sidebar.php');
-      	?>
+		<a href="home.php" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Admin Panel</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="home.php">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="staff.php">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">List Of Staff</span>
+				</a>
+			</li>
+			<li  class="active">
+				<a href="student.php">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">List of Student</span>
+				</a>
+			</li>
+			<li>
+				<a href="class.php">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">List of Class</span>
+				</a>
+			</li>
+			<li>
+				<a href="addstaff.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Staff</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="login.php" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
 	</section>
 	<!-- SIDEBAR -->
 
@@ -75,52 +107,35 @@
 					</div>
 					<table style = "text-align: center">
 							<tr>
-								<th>No</th>
-								<th>Student ID</th>
+								<th>Student ID </th>
 								<th>Name</th>
-								<!-- <th>Grade</th> -->
-								<th>Gender</th>
-								<th>Date of Birth</th>
+								<th>Grade</th>
+								<th>Class Name</th>
 								<th>Parent Name</th>
-								<th>Parent's Phone Number</th>
+								<th>Parent Phone Number</th>
 								<th>View</th>
 							</tr>
 							
-			<?php
-			$fetchData = mysqli_query($conn, "SELECT * FROM student s, parent p WHERE s.parent_id = p.parent_id");
-			$num=1;
-			while ($dataB=mysqli_fetch_array($fetchData))
-			{
-			?>
-			<tr>
-				<td><?php echo $num; ?></td>
-				<td><?php echo $dataB ['stu_id']; ?></td>
-				<td><?php echo $dataB ['stu_name']; ?></td>
-				<!-- <td><?php //echo $dataB ['stu_grade']; ?></td> -->
-				<td><?php echo $dataB ['stu_gender']; ?></td>
-				<td><?php echo $dataB ['stu_dob']; ?></td>
-				<td><?php echo $dataB ['parent_name']; ?></td>
-				<td><?php echo $dataB ['parent_phone']; ?></td>
-				<td> 
-                     <a href="viewstudent.php?stu_id=<?php echo $dataB['stu_id'];?>"
-                     onclick="return confirm('Are you sure?')">View</a></td>
-			</tr>
-	
+						<?php
+							$query="SELECT * FROM STUDENT a JOIN PARENT b ON a.PARENT_ID = b.PARENT_ID";
+							$result = oci_parse($dbconn,$query);
+							oci_execute($result);
+							while($rows=oci_fetch_array($result))
+							{
 
-                <!-- echo '<tr>
-                  <td>'.$rows["STU_ID"].'</td>
-                  <td> '.$rows["STU_NAME"].'</td>
-                  <td> '.$rows["STU_GRADE"].'</td>
-                  <td> '.$rows["CLASS_NAME"].'</td>
-                  <td> '.$rows["PARENT_NAME"].'</td>
-                  <td> '.$rows["PARENT_PHONE"].'</td>
-				  <td><div align="center"><a href=viewstudent.php?user_id='.$rows["STU_ID"].'>view</a></div></td>
-                </tr>'; -->
-            
-              <?php
-			  $num++;
-              }
-            ?>				
+								echo '<tr>
+								<td>'.$rows["STU_ID"].'</td>
+								<td> '.$rows["STU_NAME"].'</td>
+								<td> '.$rows["STU_GRADE"].'</td>
+								<td> '.$rows["CLASS_NAME"].'</td>
+								<td> '.$rows["PARENT_NAME"].'</td>
+								<td> '.$rows["PARENT_PHONE"].'</td>
+								<td><div align="center"><a href=viewstudent.php?user_id='.$rows["STU_ID"].'>view</a></div></td>
+								</tr>';
+							
+							
+							}
+							?>				
 					</table>
 				</div>
 			</div>

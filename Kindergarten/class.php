@@ -1,7 +1,6 @@
 <?php 
 		//Connection to database 
 		include 'dbconn.php';
-		session_start();
 ?>
 
 <!DOCTYPE html>
@@ -22,9 +21,50 @@
 
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-	<?php
-         include ('sidebar.php');
-      ?>
+		<a href="home.php" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Admin Panel</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="home.php">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="staff.php">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">List Of Staff</span>
+				</a>
+			</li>
+			<li>
+				<a href="student.php">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">List of Student</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="class.php">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">List of Class</span>
+				</a>
+			</li>
+			<li>
+				<a href="addstaff.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Staff</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="login.php" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
 	</section>
 	<!-- SIDEBAR -->
 
@@ -61,45 +101,29 @@
 						<i class='bx bx-filter' ></i>
 					</div>
 					<table>
-							<tr>
-								<th>No</th>
-								<th>Class ID </th>
-								<th>Class Name</th>
-								<th>Amount Student</th>
-							</tr>
-
-						<?php						
-							$query="SELECT *
-									FROM class";
-							$result = mysqli_query($conn,$query);
-							$num=1;				
-							while($dataB=mysqli_fetch_array($result))
-							{
-						?>
-							<tr>
-								<td><?php echo $num; ?></td>
-								<td><?php echo $dataB ['class_id']; ?></td>
-								<td><?php echo $dataB ['class_name']; ?></td>
-							</tr>
-						<?php 
-						$num++; 
-						}
-						?>
-
+						<tr>
+							<th>Class Name</th>
+							<th>Amount Student</th>
+						</tr>
 						<?php
-							// $query="SELECT COUNT(STU_ID)
-							// 	FROM STUDENT";
-							// $result1 = mysqli_query($conn,$query);
+												
+							$query="SELECT CLASS_NAME, COUNT(STU_ID) AS AMOUNT
+									FROM STUDENT
+									GROUP BY CLASS_NAME";
+							$result = oci_parse($dbconn,$query);
+
+							oci_execute($result);
+							while($rows=oci_fetch_array($result))
+							{
 							
-							// while($dataB=mysqli_fetch_array($result1))
-							// {
-						?>
-							<!-- <td><?php// echo $dataB ['p_id']; ?></td> -->
-							<!-- <td><?php// echo $dataB ['p_name']; ?></td>-->
-						<?php 
-						// }
-						?>			
-						
+								echo '<tr>
+									<td>'.$rows["CLASS_NAME"].'</td>
+									<td> '.$rows["AMOUNT"].'</td>
+								</tr>';
+							
+							
+							}
+							?>	
 					</table>
 				</div>
 			</div>

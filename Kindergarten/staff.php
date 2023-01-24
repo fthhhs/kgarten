@@ -1,14 +1,7 @@
 <?php 
-	session_start();
-	//Connection to database 
-	include ('dbconn1.php');
-	// $query="Select s.STAFF_ID, s.STAFF_NAME,s.STAFF_PHONE, s.STAFF_EMAIL,s.STAFF_STATUS, s.STAFF_HIREDATE,super.STAFF_NAME AS SUPERVISOR
-	// 		from STAFF s 
-	// 		LEFT OUTER JOIN STAFF super
-	// 		ON s.SUPERVISOR_ID = super.STAFF_ID
-	// 		ORDER BY STAFF_ID ASC";
-	// $result = mysqli_fetch_array($dbconn,$query);
-	// oci_execute($result);
+		//Connection to database 
+		include 'dbconn.php';
+		
 ?>
 
 <!DOCTYPE html>
@@ -29,11 +22,54 @@
 
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<?php
-         include ('sidebar.php');
-      ?>
+		<a href="home.php" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Admin Panel</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="home.php">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="staff.php">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">List Of Staff</span>
+				</a>
+			</li>
+			<li>
+				<a href="student.php">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">List of Student</span>
+				</a>
+			</li>
+			<li>
+				<a href="class.php">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">List of Class</span>
+				</a>
+			</li>
+			<li>
+				<a href="addstaff.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Staff</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="login.php" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
 	</section>
 	<!-- SIDEBAR -->
+
+
 
 	<!-- CONTENT -->
 	<section id="content">
@@ -74,39 +110,41 @@
 					</div>
 					<table style ="text-align: center">
 							<tr>
-								<th>No</th>
 								<th>Staff ID</th>
 								<th>Name</th>
-								<th>Gender</th>
-                        		<th>Status</th>
-								<th>Password</th>
+								<th>Phone Number</th>
+								<th>Email</th>
+								<th>Status</th>
+								<th>Hire Date</th>
+								<th>Supervisor Name</th>
 								<th>Edit</th>
 								<th>Delete</th>
+								
 							</tr>
 							
-				<?php
-            $fetchData = oci_parse($conn, "SELECT * FROM teacher ");
-			oci_execute($fetchData);
-			   $num=1;
-			   while ($dataB=oci_fetch_array($fetchData))
-			   {
-			   ?> 
-               <tr>
-                  <td><?php echo $num; ?></td>
-                  <td><?php echo $dataB ['TEACHER_ID']; ?></td>
-                  <td><?php echo $dataB ['TEACHER_NAME']; ?></td>
-                  <td><?php echo $dataB ['TEACHER_GENDER']; ?></td>
-                  <td><?php echo $dataB ['TEACHER_STATUS']; ?></td>
-                  <td><?php echo $dataB ['TEACHER_PASSWORD']; ?></td>
-                  <td>
-                     <a href="edit.php?TEACHER_ID=<?php echo $dataB['TEACHER_ID'];?>" 
-                     onclick="return confirm('Are you sure?')">Edit</a></td>
-                  <td> 
-                     <a href="delete.php?TEACHER_ID=<?php echo $dataB['TEACHER_ID'];?>"
-                     onclick="return confirm('Are you sure?')">Delete</a></td>
-                </tr>
-            <?php
-            $num++;
+			<?php
+			$result = oci_parse($dbconn,
+			"SELECT a.TEACHER_ID, a.TEACHER_NAME, a.TEACHER_PHONE, a.TEACHER_EMAIL, a.TEACHER_STATUS, a.TEACHER_HIREDATE, b.TEACHER_NAME AS SUPERVISOR 
+			FROM teacher a 
+			LEFT OUTER JOIN teacher b 
+			ON b.TEACHER_ID = a.SUPERVISOR_ID");
+			oci_execute($result);
+              while($rows=oci_fetch_array($result))
+              {
+            
+                echo '<tr>
+                  <td>'.$rows["TEACHER_ID"].'</td>
+                  <td> '.$rows["TEACHER_NAME"].'</td>
+                  <td> '.$rows["TEACHER_PHONE"].'</td>
+                  <td> '.$rows["TEACHER_EMAIL"].'</td>
+                  <td> '.$rows["TEACHER_STATUS"].'</td>
+                  <td> '.$rows["TEACHER_HIREDATE"].'</td>
+				  <td> '.$rows["SUPERVISOR"].'</td>
+                  <td><div align="center"><a href=updatestaff.php?user_id='.$rows["TEACHER_ID"].'>edit</a></div></td>
+				  <td><div align="center"><a href=delete.php?user_id='.$rows["TEACHER_ID"].'>delete</a></div></td>
+                </tr>';
+            
+              
               }
             ?>			
 					</table>

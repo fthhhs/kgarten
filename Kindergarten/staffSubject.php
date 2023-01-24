@@ -1,15 +1,7 @@
 <?php 
-		//Connection to database 
-		include 'dbconn.php';
-		// $query="SELECT STAFF_ID,STAFF_NAME,SUBJECT_ID,SUBJECT_NAME
-		// 		FROM STAFF
-		// 		JOIN STAFF_SUBJECT
-		// 		USING (STAFF_ID)
-		// 		JOIN SUBJECT
-		// 		USING (SUBJECT_ID)
-		// 		ORDER BY STAFF_ID Asc";
-		// $result = mysqli_query($dbconn,$query);
-		// oci_execute($result);
+	//Connection to database 
+	include 'dbconn.php';
+		
 ?>
 
 <!DOCTYPE html>
@@ -30,9 +22,50 @@
 
 	<!-- SIDEBAR -->
 	<section id="sidebar">
-		<?php
-			include ('sidebar.php');
-		?>
+		<a href="home.php" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Admin Panel</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="home.php">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="staff.php">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">List Of Staff</span>
+				</a>
+			</li>
+			<li>
+				<a href="student.php">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">List of Student</span>
+				</a>
+			</li>
+			<li>
+				<a href="class.php">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">List of Class</span>
+				</a>
+			</li>
+			<li>
+				<a href="addstaff.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Staff</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="login.php" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
 	</section>
 	<!-- SIDEBAR -->
 
@@ -74,7 +107,6 @@
 					</div>
 					<table>
 							<tr>
-								<th>No</th>
 								<th>Staff ID </th>
 								<th>Staff Name</th>
 								<th>Subject ID</th>
@@ -83,38 +115,23 @@
 							</tr>
 							
 									
-						<?php
-						// while($rows=oci_fetch_assoc($result))
-						// {
-							$fetchData = mysqli_query($conn, "SELECT * FROM teacher t JOIN teacher_subject ts on t.teacher_id = ts.teacher_id JOIN subject s ON ts.subject_id = s.subject_id");
-							$num=1;
-							while ($dataB=mysqli_fetch_array($fetchData))
-							{
-							?>
-					
-						
-						<!-- echo '<tr>
-						<td>'.$rows["STAFF_ID"].'</td>
-						<td> '.$rows["STAFF_NAME"].'</td>
-						<td> '.$rows["SUBJECT_ID"].'</td>
-						<td> '.$rows["SUBJECT_NAME"].'</td>
-						<td><div align="center" onClick=return confirm("Are you sure?")><a href=deletesubject.php?user_id='.$rows["STAFF_ID"].'>delete </a></div></td>
-						</tr>'; -->
-						<tr>
-						<td><?php echo $num; ?></td>
-						<td><?php echo $dataB ['teacher_id']; ?></td>
-						<td><?php echo $dataB ['teacher_name']; ?></td>
-						<td><?php echo $dataB ['subject_id']; ?></td>
-						<td><?php echo $dataB ['subject_name']; ?></td>
-						<td> 
-                     		<a href="deletesubject.php?teacher_id=<?php echo $dataB['teacher_id'];?>"
-                    		onclick="return confirm('Are you sure?')">Delete</a></td>
-						</tr>
-					
-						<?php
-						$num++;
-						}
-					?>			
+			  <?php
+			  $query="SELECT * FROM TEACHER t JOIN TEACHER_SUBJECT ts on t.TEACHER_ID = ts.TEACHER_ID JOIN subject s ON ts.SUBJECT_ID = s.SUBJECT_ID";
+				$result = oci_parse($dbconn,$query);
+				oci_execute($result);
+              while($rows=oci_fetch_array($result))
+              {
+                echo '<tr>
+                  <td>'.$rows["TEACHER_ID"].'</td>
+                  <td> '.$rows["TEACHER_NAME"].'</td>
+                  <td> '.$rows["SUBJECT_ID"].'</td>
+                  <td> '.$rows["SUBJECT_NAME"].'</td>
+                   <td><div align="center" onClick=return confirm("Are you sure?")><a href=deletesubject.php?user_id='.$rows["TEACHER_ID"].'>delete </a></div></td>
+                </tr>';
+            
+              
+              }
+            ?>			
 					</table>
 				</div>
 			</div>
