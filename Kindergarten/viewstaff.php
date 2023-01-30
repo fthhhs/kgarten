@@ -168,7 +168,7 @@ form .user-details .input-box{
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
-			<li>
+			<li class="active">
 				<a href="staff.php">
 					<i class='bx bxs-shopping-bag-alt' ></i>
 					<span class="text">List Of Staff</span>
@@ -180,7 +180,7 @@ form .user-details .input-box{
 					<span class="text">List of Parent</span>
 				</a>
 			</li>
-			<li class="active">
+			<li class="">
 				<a href="student.php">
 					<i class='bx bxs-doughnut-chart' ></i>
 					<span class="text">List of Student</span>
@@ -252,30 +252,30 @@ form .user-details .input-box{
 		<div>
 		
 	<div class="container">
-	    <div class="title">Details of Student</div>
+	    <div class="title">Details of Staff</div>
 		<div class="content">
 		
 		<?php
 		$id=$_GET['user_id'];
-		$query="Select STU_ID, STU_NAME, STU_GRADE, STU_GENDER, STU_DOB, STU_YEAR_ENROLLED, PARENT_NAME, PARENT_PHONE, PARENT_ADDRESS 
-		        from STUDENT
-				JOIN PARENT
-				USING(PARENT_ID)
-				WHERE STU_ID='$id'";
+		$query="SELECT *
+		        FROM TEACHER
+				WHERE TEACHER_ID='$id'";
 		$result = oci_parse($dbconn,$query);
         oci_execute($result);
 		while ( $user = oci_fetch_array($result))
 			{					
 					
-					 $STU_ID = $user['STU_ID'];
-					 $STU_NAME = $user['STU_NAME'];
-					 $STU_GRADE = $user['STU_GRADE'];
-				   	 $STU_GENDER = $user['STU_GENDER'];
-					 $STU_DOB = $user['STU_DOB'];
-					 $STU_YEAR_ENROLLED = $user['STU_YEAR_ENROLLED'];
-					 $PARENT_NAME = $user['PARENT_NAME'];
-					 $PARENT_PHONE = $user['PARENT_PHONE'];
-					 $PARENT_ADDRESS = $user['PARENT_ADDRESS'];
+					 $TEACHER_ID = $user['TEACHER_ID'];
+					 $TEACHER_NAME = $user['TEACHER_NAME'];
+					 $TEACHER_DOB = $user['TEACHER_DOB'];
+				   	 $TEACHER_PHONE = $user['TEACHER_PHONE'];
+					 $TEACHER_EMAIL = $user['TEACHER_EMAIL'];
+					 $TEACHER_ADDRESS = $user['TEACHER_ADDRESS'];
+					 $TEACHER_GENDER = $user['TEACHER_GENDER'];
+					 $TEACHER_STATUS = $user['TEACHER_STATUS'];
+					 $TEACHER_SALARY = $user['TEACHER_SALARY'];
+                     $TEACHER_HIREDATE = $user['TEACHER_HIREDATE'];
+                     $TEACHER_PASSWORD = $user['TEACHER_PASSWORD'];
 					 
 			}
 			?>
@@ -283,24 +283,28 @@ form .user-details .input-box{
 			
 			<div class="user-details">
 				<div class="input-box">
-					<label class = "details">STUDENT ID :</label>
-					<label class = "details"><?php echo $STU_ID ?></label><br>
-					<label class = "details">Student Name : </label>
-					<label class = "details"><?php echo $STU_NAME ?></label><br>
-					<label class = "details">Student Grade : </label>
-					<label class = "details"><?php echo $STU_GRADE ?></label><br>
-					<label class = "details">Student Gender : </label>
-					<label class = "details"><?php echo $STU_GENDER ?></label><br>
-					<label class = "details">Student Date Of Birth : </label>
-					<label class = "details"><?php echo $STU_DOB ?></label><br>
-					<label class = "details">Student Date of Enrolled : </label>
-					<label class = "details"><?php echo $STU_YEAR_ENROLLED ?></label><br>
-					<label class = "details">Parent Name: </label>
-					<label class = "details"><?php echo $PARENT_NAME ?></label><br>
-					<label class = "details">Parent Phone No. : </label>
-					<label class = "details"><?php echo $PARENT_PHONE ?></label><br>
-					<label class = "details">Parent Address :</label>
-					<label class = "details"><?php echo $PARENT_ADDRESS ?></label><br>
+					<label class = "details">Teacher ID :</label>
+					<label class = "details"><?php echo $TEACHER_ID ?></label><br>
+					<label class = "details">Name : </label>
+					<label class = "details"><?php echo $TEACHER_NAME ?></label><br>
+					<label class = "details">Date of Birth : </label>
+					<label class = "details"><?php echo $TEACHER_DOB ?></label><br>
+					<label class = "details">Phone Number : </label>
+					<label class = "details"><?php echo $TEACHER_PHONE ?></label><br>
+					<label class = "details">Email : </label>
+					<label class = "details"><?php echo $TEACHER_EMAIL ?></label><br>
+					<label class = "details">Address : </label>
+					<label class = "details"><?php echo $TEACHER_ADDRESS ?></label><br>
+					<label class = "details">Gender: </label>
+					<label class = "details"><?php echo $TEACHER_GENDER ?></label><br>
+					<label class = "details">Status : </label>
+					<label class = "details"><?php echo $TEACHER_STATUS ?></label><br>
+					<label class = "details">Salary :</label>
+					<label class = "details">RM <?php echo $TEACHER_SALARY ?></label><br>
+                    <label class = "details">Hire Date :</label>
+                    <label class = "details"><?php echo $TEACHER_HIREDATE ?></label><br>
+                    <label class = "details">Password :</label>
+                    <label class = "details"><?php echo $TEACHER_PASSWORD ?></label><br>
 				</div>
 				</div>
 				<a href="student.php" class="btn-download">

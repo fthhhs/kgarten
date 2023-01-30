@@ -153,9 +153,6 @@ form .user-details .input-box{
 }
 </style>
 <body>
-
-
-	<!-- SIDEBAR -->
 	<section id="sidebar">
 		<a href="home.php" class="brand">
 			<i class='bx bxs-smile'></i>
@@ -174,7 +171,13 @@ form .user-details .input-box{
 					<span class="text">List Of Staff</span>
 				</a>
 			</li>
-			<li>
+			<li class="">
+				<a href="parent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">List of Parent</span>
+				</a>
+			</li>
+			<li class="">
 				<a href="student.php">
 					<i class='bx bxs-doughnut-chart' ></i>
 					<span class="text">List of Student</span>
@@ -186,16 +189,28 @@ form .user-details .input-box{
 					<span class="text">List of Class</span>
 				</a>
 			</li>
-			<li>
+			<li class="">
 				<a href="addstaff.php">
 					<i class='bx bxs-group' ></i>
 					<span class="text">Add Staff</span>
 				</a>
 			</li>
+            <li class="">
+				<a href="addstudent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Student</span>
+				</a>
+			</li>
+			<li class="">
+				<a href="addparent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Parent</span>
+				</a>
+			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="login.php" class="logout">
+				<a href="funclogout.php" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
@@ -270,6 +285,10 @@ form .user-details .input-box{
 				$TEACHER_ADDRESS = $user['TEACHER_ADDRESS'];
 				$TEACHER_SALARY = $user['TEACHER_SALARY'];
 				$SUPERVISOR_ID = $user['SUPERVISOR_ID'];
+				$TEACHER_PASSWORD = $user['TEACHER_PASSWORD'];
+				$TEACHER_DOB = $user['TEACHER_DOB'];
+				$TEACHER_GENDER = $user['TEACHER_GENDER'];
+				$TEACHER_HIREDATE = $user['TEACHER_HIREDATE'];
 					 
 			}
 			?>
@@ -306,13 +325,38 @@ form .user-details .input-box{
 					</div>
 				</div>
 				
+				<div class="user-details">	
+					<div class="input-box">
+						<label class="details">Date of Birth</label>
+						<input type="text" name="TEACHER_DOB" value="<?php echo $TEACHER_DOB ?>">
+					</div>
+
+					<div class="input-box">
+						<label class="details">Hire Date</label>
+						<input type="text" name="TEACHER_HIREDATE" value="<?php echo $TEACHER_HIREDATE ?>">
+					</div>
+				</div>
+
+				<div class="user-details">	
+					<div class="input-box">
+						<label class="details">Password</label>
+						<input type="text" name="TEACHER_PASSWORD" value="<?php echo $TEACHER_PASSWORD ?>">
+					</div>
+
+					<div class="input-box">
+						<label class="details">Gender</label>
+						<input type="text" name="TEACHER_GENDER" value="<?php echo $TEACHER_GENDER ?>">
+					</div>
+				</div>
+
+
 				<div class="user-details">
-					
+
 					<div class="input-box">
 						<label class="details">Salary (RM)</label>
 						<input type="text" name="TEACHER_SALARY" value="<?php echo $TEACHER_SALARY ?>">
 					</div>
-					
+
 					<div class="input-box">
 						<label class="details">Supervisor ID</label>
 						<input type="text" name="SUPERVISOR_ID" value="<?php echo $SUPERVISOR_ID ?>">
@@ -320,7 +364,7 @@ form .user-details .input-box{
 				</div>
 				
 				<div class="button">
-						<input type="submit" name="submit" value="submit">
+						<input type="submit" name="staff" value="submit">
 				</div>
 			</form>		
 		</div>

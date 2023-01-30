@@ -1,11 +1,12 @@
 <?php 
 		//Connection to database 
 		include 'dbconn.php';
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,8 +18,6 @@
 	<title>AdminHub</title>
 </head>
 <body>
-
-
 	<!-- SIDEBAR -->
 	<section id="sidebar">
 		<a href="home.php" class="brand">
@@ -38,19 +37,19 @@
 					<span class="text">List Of Staff</span>
 				</a>
 			</li>
-			<li class="">
+			<li class="active">
 				<a href="parent.php">
 					<i class='bx bxs-group' ></i>
 					<span class="text">List of Parent</span>
 				</a>
 			</li>
-			<li>
+			<li class="">
 				<a href="student.php">
 					<i class='bx bxs-doughnut-chart' ></i>
 					<span class="text">List of Student</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="class.php">
 					<i class='bx bxs-message-dots' ></i>
 					<span class="text">List of Class</span>
@@ -94,7 +93,7 @@
 		<nav>
 			<i class='bx bx-menu' ></i>
 		</nav>
-		<!-- NAVBAR -->
+		<!-- NAVBAR --> 
 
 		<!-- MAIN -->
 		<main>
@@ -111,40 +110,52 @@
 						</li>
 					</ul>
 				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download' ></i>
+					<span class="text" onclick = "window.print()">Download PDF</span>
+				</a>
 			</div>
 			<div class="table-data">
 				<div class="order">
 					<div class="head">
-						<h3>List of Class</h3>
+						<h3>List of Parent</h3>
 						<i class='bx bx-filter' ></i>
 					</div>
-					<table>
-						<tr>
-							<th>Class Name</th>
-							<th>Grade</th>
-							<th>Amount Student</th>
-						</tr>
+					<table style = "text-align: center">
+							<tr>
+								<th>Student ID </th>
+								<th>Name</th>
+								<th>Grade</th>
+								<th>Class Name</th>
+								<th>Parent Name</th>
+								<th>Parent Phone Number</th>
+								<th>View</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+							
 						<?php
-												
-							$query="SELECT CLASS_NAME, STU_GRADE, COUNT(STU_GRADE) AS AMOUNT
-									FROM STUDENT
-									GROUP BY CLASS_NAME, STU_GRADE
-									ORDER BY STU_GRADE";
+							$query="SELECT * FROM PARENT ORDER BY PARENT_ID";
 							$result = oci_parse($dbconn,$query);
-
 							oci_execute($result);
 							while($rows=oci_fetch_array($result))
 							{
-							
+
 								echo '<tr>
-									<td>'.$rows["CLASS_NAME"].'</td>
-									<td> '.$rows["STU_GRADE"].'</td>
-									<td> '.$rows["AMOUNT"].'</td>
+									<td>'.$rows["PARENT_ID"].'</td>
+									<td> '.$rows["PARENT_NAME"].'</td>
+									<td> '.$rows["PARENT_AGE"].'</td>
+									<td> '.$rows["PARENT_PHONE"].'</td>
+									<td> '.$rows["PARENT_ADDRESS"].'</td>
+									<td> '.$rows["PARENT_EMAIL"].'</td>
+									<td><div align="center"><a href=viewparent.php?user_id='.$rows["PARENT_ID"].'>view</a></div></td>
+									<td><div align="center"><a href=updateparent.php?user_id='.$rows["PARENT_ID"].'>edit</a></div></td>
+									<td><div align="center"><a href=delete.php?user_id='.$rows["PARENT_ID"].'>delete</a></div></td>
 								</tr>';
 							
 							
 							}
-							?>	
+							?>				
 					</table>
 				</div>
 			</div>

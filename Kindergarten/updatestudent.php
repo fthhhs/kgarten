@@ -3,8 +3,6 @@
 		include 'dbconn.php';
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -153,9 +151,6 @@ form .user-details .input-box{
 }
 </style>
 <body>
-
-
-	<!-- SIDEBAR -->
 	<section id="sidebar">
 		<a href="home.php" class="brand">
 			<i class='bx bxs-smile'></i>
@@ -168,7 +163,7 @@ form .user-details .input-box{
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
-			<li>
+			<li class="">
 				<a href="staff.php">
 					<i class='bx bxs-shopping-bag-alt' ></i>
 					<span class="text">List Of Staff</span>
@@ -227,6 +222,21 @@ form .user-details .input-box{
 	<!-- CONTENT -->
 	<section id="content">
 		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<a href="#" class="nav-link">Categories</a>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="edit.php" class="profile">
+				<img src="profile.png">
+			</a>
+		</nav>
 		<!-- NAVBAR -->
 
 	<!-- MAIN -->
@@ -246,7 +256,7 @@ form .user-details .input-box{
 				</div>
 				<a href="#" class="btn-download">
 					<i class='bx bxs-cloud-download' ></i>
-					<span class="text" onclick = "window.print()">Download PDF</span>
+					<span class="text">Download PDF</span>
 				</a>
 			</div>
 		<div>
@@ -257,61 +267,89 @@ form .user-details .input-box{
 		
 		<?php
 		$id=$_GET['user_id'];
-		$query="Select STU_ID, STU_NAME, STU_GRADE, STU_GENDER, STU_DOB, STU_YEAR_ENROLLED, PARENT_NAME, PARENT_PHONE, PARENT_ADDRESS 
-		        from STUDENT
-				JOIN PARENT
-				USING(PARENT_ID)
-				WHERE STU_ID='$id'";
+		$query="SELECT * 
+		FROM STUDENT 
+        LEFT OUTER JOIN PARENT 
+        USING(PARENT_ID)
+		WHERE STU_ID='$id'";
 		$result = oci_parse($dbconn,$query);
-        oci_execute($result);
-		while ( $user = oci_fetch_array($result))
+       		 oci_execute($result);
+			while ( $user = oci_fetch_array($result))
 			{					
-					
-					 $STU_ID = $user['STU_ID'];
-					 $STU_NAME = $user['STU_NAME'];
-					 $STU_GRADE = $user['STU_GRADE'];
-				   	 $STU_GENDER = $user['STU_GENDER'];
-					 $STU_DOB = $user['STU_DOB'];
-					 $STU_YEAR_ENROLLED = $user['STU_YEAR_ENROLLED'];
-					 $PARENT_NAME = $user['PARENT_NAME'];
-					 $PARENT_PHONE = $user['PARENT_PHONE'];
-					 $PARENT_ADDRESS = $user['PARENT_ADDRESS'];
-					 
+			
+				$STU_ID = $user['STU_ID'];
+				$STU_NAME = $user['STU_NAME'];
+				$STU_GRADE = $user['STU_GRADE'];
+				$STU_GENDER = $user['STU_GENDER'];
+				$STU_DOB = $user['STU_DOB'];
+				$STU_YEAR_ENROLLED = $user['STU_YEAR_ENROLLED'];
+				$PARENT_ID = $user['PARENT_ID'];
+				$CLASS_NAME = $user['CLASS_NAME'];	
+                $PARENT_NAME = $user['PARENT_NAME'];
+                $PARENT_PHONE = $user['PARENT_PHONE'];						 
 			}
 			?>
-			<form action="editstaff.php" method="POST">
-			
-			<div class="user-details">
-				<div class="input-box">
-					<label class = "details">STUDENT ID :</label>
-					<label class = "details"><?php echo $STU_ID ?></label><br>
-					<label class = "details">Student Name : </label>
-					<label class = "details"><?php echo $STU_NAME ?></label><br>
-					<label class = "details">Student Grade : </label>
-					<label class = "details"><?php echo $STU_GRADE ?></label><br>
-					<label class = "details">Student Gender : </label>
-					<label class = "details"><?php echo $STU_GENDER ?></label><br>
-					<label class = "details">Student Date Of Birth : </label>
-					<label class = "details"><?php echo $STU_DOB ?></label><br>
-					<label class = "details">Student Date of Enrolled : </label>
-					<label class = "details"><?php echo $STU_YEAR_ENROLLED ?></label><br>
-					<label class = "details">Parent Name: </label>
-					<label class = "details"><?php echo $PARENT_NAME ?></label><br>
-					<label class = "details">Parent Phone No. : </label>
-					<label class = "details"><?php echo $PARENT_PHONE ?></label><br>
-					<label class = "details">Parent Address :</label>
-					<label class = "details"><?php echo $PARENT_ADDRESS ?></label><br>
+			<form action="editstudent" method="POST">
+				<div class="user-details">
+					<div class="input-box">
+						<label class = "details">Student ID</label>
+						<input type="text" name="STU_ID" value="<?php echo $STU_ID ?>">
+					</div>
+					
+					<div class="input-box">
+						<label class = "details">Name</label>
+						<input type="text" name="STU_NAME" value="<?php echo $STU_NAME ?>">
+					</div>
+					
+					<div class="input-box">
+						<label class = "details">Grade</label>
+						<input type="text" name="STU_GRADE" value="<?php echo $STU_GRADE ?>">
+					</div>
+					
+					<div class="input-box">
+						<label class = "details">Gender</label>
+						<input type="text" name="STU_GENDER" value="<?php echo $STU_GENDER ?>">
+					</div>
+					
+					<div class="input-box">
+						<label class = "details">Date of Birth</label>
+						<input type="text" name="STU_DOB" value="<?php echo  $STU_DOB ?>">
+					</div>
+					
+					<div class="input-box">
+						<label class = "details">Year Enrolled</label>
+						<input type="text" name="STU_YEAR_ENROLLED" value="<?php echo $STU_YEAR_ENROLLED ?>">
+					</div>
+
+					<div class="input-box">
+						<label class="details">Parent ID</label>
+						<input type="text" name="PARENT_ID" value="<?php echo $PARENT_ID ?>">
+					</div>
+
+                    <div class="input-box">
+						<label class="details">Parent Name</label>
+						<input type="text" name="PARENT_NAME" value="<?php echo $PARENT_NAME ?>">
+					</div>
+
+                    <div class="input-box">
+						<label class="details">Parent Phone</label>
+						<input type="text" name="PARENT_PHONE" value="<?php echo $PARENT_PHONE ?>">
+					</div>
+
+                    <div class="input-box">
+						<label class="details">Class Name</label>
+						<input type="text" name="CLASS_NAME" value="<?php echo $CLASS_NAME ?>">
+					</div>
+                </div>
+				
+				<div class="button">
+						<input type="submit" name="student" value="submit">
 				</div>
-				</div>
-				<a href="student.php" class="btn-download">
-					<i class="" ></i>
-					<span class="text">Back</span>
-				</a>
 			</form>		
 		</div>
 	</div>
 	</main>
-		<!-- MAIN -->
+	<!-- MAIN -->
 	</section>
 	<!-- CONTENT -->
 
@@ -319,3 +357,19 @@ form .user-details .input-box{
 	<script src="script.js"></script>
 </body>
 </html>
+
+<?php
+
+	$result = oci_parse($dbconn,"SELECT * FROM STUDENT WHERE STU_ID  ='$STU_ID'");	
+      	oci_execute($result); //NAK EXECUTE SQL
+      
+	$staff = oci_fetch_array($result);
+ 	$count = oci_num_rows($result);
+ 
+	if($count > 0)  
+	{
+	$info = $staff;   
+	$_SESSION['STU_ID']=$info['STU_ID']; 
+	}
+
+?>

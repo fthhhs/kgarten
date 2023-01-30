@@ -1,10 +1,3 @@
-<?php 
-		//Connection to database 
-		include 'dbconn.php';
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +22,9 @@
 #PART_TIME:checked ~ .overtime
 {
 	display:block;
+}
+label{
+	display: block;
 }
 .container{
   max-width: 700px;
@@ -64,6 +60,11 @@ form .user-details .input-box{
   width: calc(100% / 2 - 20px);
 }
 form .input-box label.details{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+form .input-box2 label.details{
   display: block;
   font-weight: 500;
   margin-bottom: 5px;
@@ -151,7 +152,7 @@ form .user-details .input-box{
     flex-direction: column;
   }
 }
-</style>
+</style> 
 <body>
 
 
@@ -180,7 +181,7 @@ form .user-details .input-box{
 					<span class="text">List of Parent</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="student.php">
 					<i class='bx bxs-doughnut-chart' ></i>
 					<span class="text">List of Student</span>
@@ -204,7 +205,7 @@ form .user-details .input-box{
 					<span class="text">Add Student</span>
 				</a>
 			</li>
-			<li class="">
+			<li class="active">
 				<a href="addparent.php">
 					<i class='bx bxs-group' ></i>
 					<span class="text">Add Parent</span>
@@ -227,6 +228,9 @@ form .user-details .input-box{
 	<!-- CONTENT -->
 	<section id="content">
 		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+		</nav>
 		<!-- NAVBAR -->
 
 	<!-- MAIN -->
@@ -246,76 +250,56 @@ form .user-details .input-box{
 				</div>
 				<a href="#" class="btn-download">
 					<i class='bx bxs-cloud-download' ></i>
-					<span class="text" onclick = "window.print()">Download PDF</span>
+					<span class="text">Download PDF</span>
 				</a>
 			</div>
 		<div>
 		
-	<div class="container">
-	    <div class="title">Details of Student</div>
-		<div class="content">
-		
-		<?php
-		$id=$_GET['user_id'];
-		$query="Select STU_ID, STU_NAME, STU_GRADE, STU_GENDER, STU_DOB, STU_YEAR_ENROLLED, PARENT_NAME, PARENT_PHONE, PARENT_ADDRESS 
-		        from STUDENT
-				JOIN PARENT
-				USING(PARENT_ID)
-				WHERE STU_ID='$id'";
-		$result = oci_parse($dbconn,$query);
-        oci_execute($result);
-		while ( $user = oci_fetch_array($result))
-			{					
-					
-					 $STU_ID = $user['STU_ID'];
-					 $STU_NAME = $user['STU_NAME'];
-					 $STU_GRADE = $user['STU_GRADE'];
-				   	 $STU_GENDER = $user['STU_GENDER'];
-					 $STU_DOB = $user['STU_DOB'];
-					 $STU_YEAR_ENROLLED = $user['STU_YEAR_ENROLLED'];
-					 $PARENT_NAME = $user['PARENT_NAME'];
-					 $PARENT_PHONE = $user['PARENT_PHONE'];
-					 $PARENT_ADDRESS = $user['PARENT_ADDRESS'];
-					 
-			}
-			?>
-			<form action="editstaff.php" method="POST">
-			
-			<div class="user-details">
-				<div class="input-box">
-					<label class = "details">STUDENT ID :</label>
-					<label class = "details"><?php echo $STU_ID ?></label><br>
-					<label class = "details">Student Name : </label>
-					<label class = "details"><?php echo $STU_NAME ?></label><br>
-					<label class = "details">Student Grade : </label>
-					<label class = "details"><?php echo $STU_GRADE ?></label><br>
-					<label class = "details">Student Gender : </label>
-					<label class = "details"><?php echo $STU_GENDER ?></label><br>
-					<label class = "details">Student Date Of Birth : </label>
-					<label class = "details"><?php echo $STU_DOB ?></label><br>
-					<label class = "details">Student Date of Enrolled : </label>
-					<label class = "details"><?php echo $STU_YEAR_ENROLLED ?></label><br>
-					<label class = "details">Parent Name: </label>
-					<label class = "details"><?php echo $PARENT_NAME ?></label><br>
-					<label class = "details">Parent Phone No. : </label>
-					<label class = "details"><?php echo $PARENT_PHONE ?></label><br>
-					<label class = "details">Parent Address :</label>
-					<label class = "details"><?php echo $PARENT_ADDRESS ?></label><br>
-				</div>
-				</div>
-				<a href="student.php" class="btn-download">
-					<i class="" ></i>
-					<span class="text">Back</span>
-				</a>
-			</form>		
+    <div class="container">
+		<div class="title">Parent Registration</div>
+			<div class="content">
+				<form action="addparentfx" method="POST">
+					<div class="user-details">
+						<div class="input-box">
+							<label class = "details">Parent ID</label>
+							<input type="text" name="PARENT_ID" required value="">
+						</div>
+						
+						<div class="input-box">
+							<label class = "details">Name</label>
+							<input type="text" name="PARENT_NAME" required value="">
+						</div>
+						
+						<div class="input-box">
+							<label class = "details">Age</label>
+							<input type="text" name="PARENT_AGE" required value="">
+						</div>
+
+						<div class="input-box">
+							<label class = "details">Phone Number</label>
+							<input type="text" name="PARENT_PHONE" required value="">
+						</div>
+						<div class="input-box">Address</label>
+							<input type="text" name="PARENT_ADDRESS" required value="">
+						</div>
+						<div class="input-box">
+							<label class="details">Email</label>
+							<input type="text" name="PARENT_EMAIL" required value="">
+						</div>
+					</div>
+					<div class="button">
+						<input type ="submit" name="parent" value="submit">
+					</div>
+				</form>
+			</div>
 		</div>
-	</div>
 	</main>
 		<!-- MAIN -->
 	</section>
 	<!-- CONTENT -->
-
+	
 
 	<script src="script.js"></script>
 </body>
 </html>
+

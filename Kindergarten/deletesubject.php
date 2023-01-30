@@ -3,7 +3,7 @@
 	   include 'dbconn.php';
  
        //delete data
-       $delete_id=$_GET['user_id'];    
+      $delete_id=$_GET['user_id'];    
 	   $query = "DELETE FROM TEACHER_SUBJECT WHERE TEACHER_ID='$delete_id'";
 	   $result = oci_parse( $dbconn,$query);
 	   oci_execute($result);

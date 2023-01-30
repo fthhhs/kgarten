@@ -18,8 +18,6 @@
 	<title>AdminHub</title>
 </head>
 <body>
-
-
 	<!-- SIDEBAR -->
 	<section id="sidebar">
 		<a href="home.php" class="brand">
@@ -39,7 +37,13 @@
 					<span class="text">List Of Staff</span>
 				</a>
 			</li>
-			<li  class="active">
+			<li class="">
+				<a href="parent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">List of Parent</span>
+				</a>
+			</li>
+			<li class="active">
 				<a href="student.php">
 					<i class='bx bxs-doughnut-chart' ></i>
 					<span class="text">List of Student</span>
@@ -51,16 +55,28 @@
 					<span class="text">List of Class</span>
 				</a>
 			</li>
-			<li>
+			<li class="">
 				<a href="addstaff.php">
 					<i class='bx bxs-group' ></i>
 					<span class="text">Add Staff</span>
 				</a>
 			</li>
+            <li class="">
+				<a href="addstudent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Student</span>
+				</a>
+			</li>
+			<li class="">
+				<a href="addparent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Parent</span>
+				</a>
+			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="login.php" class="logout">
+				<a href="funclogout.php" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
@@ -114,23 +130,27 @@
 								<th>Parent Name</th>
 								<th>Parent Phone Number</th>
 								<th>View</th>
+								<th>Edit</th>
+								<th>Delete</th>
 							</tr>
 							
 						<?php
-							$query="SELECT * FROM STUDENT a JOIN PARENT b ON a.PARENT_ID = b.PARENT_ID";
+							$query="SELECT * FROM STUDENT a LEFT OUTER JOIN PARENT b ON b.PARENT_ID = a.PARENT_ID ORDER BY STU_ID";
 							$result = oci_parse($dbconn,$query);
 							oci_execute($result);
 							while($rows=oci_fetch_array($result))
 							{
 
 								echo '<tr>
-								<td>'.$rows["STU_ID"].'</td>
-								<td> '.$rows["STU_NAME"].'</td>
-								<td> '.$rows["STU_GRADE"].'</td>
-								<td> '.$rows["CLASS_NAME"].'</td>
-								<td> '.$rows["PARENT_NAME"].'</td>
-								<td> '.$rows["PARENT_PHONE"].'</td>
-								<td><div align="center"><a href=viewstudent.php?user_id='.$rows["STU_ID"].'>view</a></div></td>
+									<td>'.$rows["STU_ID"].'</td>
+									<td> '.$rows["STU_NAME"].'</td>
+									<td> '.$rows["STU_GRADE"].'</td>
+									<td> '.$rows["CLASS_NAME"].'</td>
+									<td> '.$rows["PARENT_NAME"].'</td>
+									<td> '.$rows["PARENT_PHONE"].'</td>
+									<td><div align="center"><a href=viewstudent.php?user_id='.$rows["STU_ID"].'>view</a></div></td>
+									<td><div align="center"><a href=updatestudent.php?user_id='.$rows["STU_ID"].'>edit</a></div></td>
+									<td><div align="center"><a href=delete.php?user_id='.$rows["STU_ID"].'>delete</a></div></td>
 								</tr>';
 							
 							

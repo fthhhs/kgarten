@@ -168,19 +168,19 @@ form .user-details .input-box{
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
-			<li>
+			<li class="">
 				<a href="staff.php">
 					<i class='bx bxs-shopping-bag-alt' ></i>
 					<span class="text">List Of Staff</span>
 				</a>
 			</li>
-			<li class="">
+			<li class="active">
 				<a href="parent.php">
 					<i class='bx bxs-group' ></i>
 					<span class="text">List of Parent</span>
 				</a>
 			</li>
-			<li class="active">
+			<li class="">
 				<a href="student.php">
 					<i class='bx bxs-doughnut-chart' ></i>
 					<span class="text">List of Student</span>
@@ -252,29 +252,24 @@ form .user-details .input-box{
 		<div>
 		
 	<div class="container">
-	    <div class="title">Details of Student</div>
+	    <div class="title">Details of Parent</div>
 		<div class="content">
 		
 		<?php
 		$id=$_GET['user_id'];
-		$query="Select STU_ID, STU_NAME, STU_GRADE, STU_GENDER, STU_DOB, STU_YEAR_ENROLLED, PARENT_NAME, PARENT_PHONE, PARENT_ADDRESS 
-		        from STUDENT
-				JOIN PARENT
-				USING(PARENT_ID)
-				WHERE STU_ID='$id'";
+		$query="SELECT *
+		        FROM PARENT
+				WHERE PARENT_ID='$id'";
 		$result = oci_parse($dbconn,$query);
         oci_execute($result);
 		while ( $user = oci_fetch_array($result))
 			{					
 					
-					 $STU_ID = $user['STU_ID'];
-					 $STU_NAME = $user['STU_NAME'];
-					 $STU_GRADE = $user['STU_GRADE'];
-				   	 $STU_GENDER = $user['STU_GENDER'];
-					 $STU_DOB = $user['STU_DOB'];
-					 $STU_YEAR_ENROLLED = $user['STU_YEAR_ENROLLED'];
+					 $PARENT_ID = $user['PARENT_ID'];
 					 $PARENT_NAME = $user['PARENT_NAME'];
-					 $PARENT_PHONE = $user['PARENT_PHONE'];
+					 $PARENT_AGE = $user['PARENT_AGE'];
+				   	 $PARENT_PHONE = $user['PARENT_PHONE'];
+					 $PARENT_EMAIL = $user['PARENT_EMAIL'];
 					 $PARENT_ADDRESS = $user['PARENT_ADDRESS'];
 					 
 			}
@@ -283,23 +278,17 @@ form .user-details .input-box{
 			
 			<div class="user-details">
 				<div class="input-box">
-					<label class = "details">STUDENT ID :</label>
-					<label class = "details"><?php echo $STU_ID ?></label><br>
-					<label class = "details">Student Name : </label>
-					<label class = "details"><?php echo $STU_NAME ?></label><br>
-					<label class = "details">Student Grade : </label>
-					<label class = "details"><?php echo $STU_GRADE ?></label><br>
-					<label class = "details">Student Gender : </label>
-					<label class = "details"><?php echo $STU_GENDER ?></label><br>
-					<label class = "details">Student Date Of Birth : </label>
-					<label class = "details"><?php echo $STU_DOB ?></label><br>
-					<label class = "details">Student Date of Enrolled : </label>
-					<label class = "details"><?php echo $STU_YEAR_ENROLLED ?></label><br>
-					<label class = "details">Parent Name: </label>
+					<label class = "details">PARENT ID :</label>
+					<label class = "details"><?php echo $PARENT_ID ?></label><br>
+					<label class = "details">Name : </label>
 					<label class = "details"><?php echo $PARENT_NAME ?></label><br>
-					<label class = "details">Parent Phone No. : </label>
+					<label class = "details">Age : </label>
+					<label class = "details"><?php echo $PARENT_AGE ?></label><br>
+					<label class = "details">Phone Number : </label>
 					<label class = "details"><?php echo $PARENT_PHONE ?></label><br>
-					<label class = "details">Parent Address :</label>
+					<label class = "details">Email : </label>
+					<label class = "details"><?php echo $PARENT_EMAIL ?></label><br>
+					<label class = "details">Address : </label>
 					<label class = "details"><?php echo $PARENT_ADDRESS ?></label><br>
 				</div>
 				</div>

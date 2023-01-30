@@ -20,10 +20,12 @@
 	
 	   $sqlempic = oci_parse($dbconn,"SELECT * FROM TEACHER ");
                    oci_execute($sqlempic);
+
+		$NEW_SALARY = $TEACHER_SALARY + $OT;
 	
 		$query = "INSERT
                   INTO TEACHER (TEACHER_ID, TEACHER_NAME, TEACHER_PHONE, TEACHER_EMAIL, TEACHER_ADDRESS, TEACHER_GENDER, TEACHER_STATUS, TEACHER_SALARY, SUPERVISOR_ID,TEACHER_DOB)
-                  VALUES (:TEACHER_ID, :TEACHER_NAME, :TEACHER_PHONE, :TEACHER_EMAIL, :TEACHER_ADDRESS, :TEACHER_GENDER, :TEACHER_STATUS, :TEACHER_SALARY, :SUPERVISOR_ID, TO_DATE('$TEACHER_DOB', 'YYYY-MM-DD'))";
+                  VALUES (:TEACHER_ID, :TEACHER_NAME, :TEACHER_PHONE, :TEACHER_EMAIL, :TEACHER_ADDRESS, :TEACHER_GENDER, :TEACHER_STATUS, $NEW_SALARY, :SUPERVISOR_ID, TO_DATE('$TEACHER_DOB', 'YYYY-MM-DD'))";
 				  
 		$result = oci_parse($dbconn,$query);
 		
@@ -34,7 +36,6 @@
 			oci_bind_by_name($result, ':TEACHER_ADDRESS', $TEACHER_ADDRESS);
 			oci_bind_by_name($result, ':TEACHER_GENDER', $TEACHER_GENDER);
 			oci_bind_by_name($result, ':TEACHER_STATUS', $TEACHER_STATUS);
-			oci_bind_by_name($result, ':TEACHER_SALARY', $TEACHER_SALARY);
 			oci_bind_by_name($result, ':SUPERVISOR_ID', $SUPERVISOR_ID);
 			oci_execute($result);
 			
@@ -52,12 +53,44 @@
 		}
 		else
 		{
+			$OT = $OVERTIME_HOURS*10;
 			$query = "INSERT INTO PART_TIME(TEACHER_ID,OVERTIME_HOURS)
-						VALUES(:TEACHER_ID, :OVERTIME_HOURS)";
+						VALUES(:TEACHER_ID, $OT
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						)";
 						
 				$result = oci_parse($dbconn,$query);
 				oci_bind_by_name($result, ':TEACHER_ID', $TEACHER_ID);
-				oci_bind_by_name($result, ':OVERTIME_HOURS', $OVERTIME_HOURS);
+	
 				oci_execute($result);
 		}
 		
@@ -69,7 +102,8 @@
 			oci_bind_by_name($result, ':SUBJECT_ID', $SUBJECT_ID);
 			oci_execute($result);	
 	}
-	
+
+		
 		if($result) 
 		{
 			oci_commit($dbconn);

@@ -81,10 +81,9 @@ include 'dbconn.php';
     
     if($count>0)
     {
-		$info = $teacher;   
-           $_SESSION['teacher_id']=$info['teacher_id'];
-		
-      header("Location:home.php");
+		      $info = $teacher;   
+          $_SESSION['teacher_id']=$info['teacher_id'];
+          echo "<script>alert('Logged in successfully !'); window.location='home.php'</script>";
     } 
     else
     {

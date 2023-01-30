@@ -154,8 +154,6 @@ form .user-details .input-box{
 }
 </style> 
 <body>
-
-
 	<!-- SIDEBAR -->
 	<section id="sidebar">
 		<a href="home.php" class="brand">
@@ -173,6 +171,12 @@ form .user-details .input-box{
 				<a href="staff.php">
 					<i class='bx bxs-shopping-bag-alt' ></i>
 					<span class="text">List Of Staff</span>
+				</a>
+			</li>
+			<li class="">
+				<a href="parent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">List of Parent</span>
 				</a>
 			</li>
 			<li>
@@ -193,10 +197,22 @@ form .user-details .input-box{
 					<span class="text">Add Staff</span>
 				</a>
 			</li>
+            <li class="">
+				<a href="addstudent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Student</span>
+				</a>
+			</li>
+			<li class="">
+				<a href="addparent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Parent</span>
+				</a>
+			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="login.php" class="logout">
+				<a href="funclogout.php" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
@@ -258,7 +274,6 @@ form .user-details .input-box{
 						<div class="overtime" hidden>
 							<label class="details">Overtime Hours</label>
 							<input type="number" name="OVERTIME_HOURS">
-							<a class="active" href="calculate.php">Calculation</a>
 						</div>
 						
 					</div>
@@ -311,19 +326,21 @@ form .user-details .input-box{
 					
 					<div class="input-box">
 						<label class="details">Salary (RM)</label>
-						<input type="text" name="TEACHER_SALARY" required value="">
+						<input type="number" name="TEACHER_SALARY" required value="">
 					</div>
 					
 					<div class="input-box">
 						<label class="details">Supervisor ID</label>
 						<select class="" name="SUPERVISOR_ID" required>
 							<option value= "" selected hidden>Select Supervisor ID</option>
+							<option value= "0"> </option>
 							<option value= "1">1-Marsha </option>
 
 						</select>
 					</div>
 					<div class="input-box2">
-						<label class="details">Subject 4 Mutiara</label>			
+						<label class="details">Subject 4 Mutiara</label>
+							<input type="radio" name="SUBJECT_ID" value="None">None<br>			
 							<input type="radio" name="SUBJECT_ID" value="a001">a001<br>
 							<input type="radio" name="SUBJECT_ID" value="b002">b002<br>
 							<input type="radio" name="SUBJECT_ID" value="c003">c003<br>

@@ -23,8 +23,6 @@
 	<title>AdminHub</title>
 </head>
 <body>
-
-
 	<!-- SIDEBAR -->
 	<section id="sidebar">
 		<a href="home.php" class="brand">
@@ -38,10 +36,16 @@
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
-			<li>
+			<li class="active">
 				<a href="staff.php">
 					<i class='bx bxs-shopping-bag-alt' ></i>
 					<span class="text">List Of Staff</span>
+				</a>
+			</li>
+			<li class="">
+				<a href="parent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">List of Parent</span>
 				</a>
 			</li>
 			<li>
@@ -50,22 +54,34 @@
 					<span class="text">List of Student</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="class.php">
 					<i class='bx bxs-message-dots' ></i>
 					<span class="text">List of Class</span>
 				</a>
 			</li>
-			<li>
-				<a href="addadmin.php">
+			<li class="">
+				<a href="addstaff.php">
 					<i class='bx bxs-group' ></i>
-					<span class="text">Add Admin</span>
+					<span class="text">Add Staff</span>
+				</a>
+			</li>
+            <li class="">
+				<a href="addstudent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Student</span>
+				</a>
+			</li>
+			<li class="">
+				<a href="addparent.php">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Add Parent</span>
 				</a>
 			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="login.php" class="logout">
+				<a href="funclogout.php" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
